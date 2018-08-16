@@ -40,6 +40,7 @@ PROJECT_VERSION="2.6.0"
 RTLSDROGN_VERSION="0.2.5"
 
 # FlightAware PiAware
+DUMP1090_FA_VERSION="3.5.1"
 PIAWARE_VERSION="3.5.1"
 
 # PlaneFinder Client
