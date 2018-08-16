@@ -123,7 +123,7 @@ echo -e "\e[94m  Entering the dump1090-fa build directory...\e[97m"
 cd $DUMP1090BUILDDIRECTORY
 echo -e "\e[94m  Installing the dump1090-fa package...\e[97m"
 echo ""
-sudo dpkg -i dump1090-fa_${PIAWAREVERSION}_*.deb
+sudo dpkg -i dump1090-fa_${DUMP1090_FA_VERSION}_*.deb
 
 # Check that the package was installed.
 echo ""

@@ -37,6 +37,7 @@
 PROJECTVERSION="2.5.1"
 
 # FlightAware PiAware
+DUMP1090_FA_VERSION="3.5.1"
 PIAWAREVERSION="3.5.1"
 
 # PlaneFinder ADS-B Client
