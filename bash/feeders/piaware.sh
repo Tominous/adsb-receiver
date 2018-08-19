@@ -156,6 +156,28 @@ else
     git clone ${COMPONENT_GITHUB_URL} 2>&1
 fi
 
+# Check that a git tag has been specified and that it is valid.
+if [[ -z "${COMPONENT_GITHUB_TAG}" ]] || [[ `git ls-remote 2>/dev/null| grep -c "refs/tags/${COMPONENT_GITHUB_TAG}\$"` -eq 0 ]] ; then
+    # No tag has been specified, or the this tag is not present in the remote repo.
+    if [[ "${COMPONENT_VERSION}" ]] && [[ -n "${COMPONENT_VERSION}" ]] && [[ `git ls-remote 2>/dev/null| grep -c "refs/tags/v${COMPONENT_VERSION}\$"` -gt 0 ]] ; then
+        # If there is a tag matching the configured version use that.
+        COMPONENT_GITHUB_TAG="v${COMPONENT_VERSION}"
+    else
+        # Otherwise get the most recent tag in the hope that it is a stable release.
+        COMPONENT_GITHUB_TAG=`git ls-remote | grep "refs/tags/v" | awk '{print $2}'| sort -V | awk -F "/" '{print $3}' | tail -1`
+    fi
+fi
+
+# Attempt to check out the required code version based on the supplied tag.
+if [[ -n "${COMPONENT_GITHUB_TAG}" ]] && [[ `git ls-remote 2>/dev/null| grep -c "refs/tags/${COMPONENT_GITHUB_TAG}"` -gt 0 ]] ; then
+    # If a valid git tag has been specified then check that out.
+    echo -e "\e[94m  Checking out ${COMPONENT_NAME} version \"${COMPONENT_GITHUB_TAG}\"...\e[97m"
+    git checkout tags/${COMPONENT_GITHUB_TAG} 2>&1
+else
+    # Otherwise checkout the master branch.
+    echo -e "\e[94m  Checking out ${COMPONENT_NAME} from the master branch...\e[97m"
+    git checkout master 2>&1
+fi
 
 ## BUILD AND INSTALL THE COMPONENT PACKAGE
 
