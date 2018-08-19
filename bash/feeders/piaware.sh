@@ -139,12 +139,15 @@ if [[ -d "${COMPONENT_BUILD_DIRECTORY}" ]] && [[ -d "${COMPONENT_BUILD_DIRECTORY
     # A directory with a git repository containing the source code already exists.
     echo -e "\e[94m  Entering the piaware_builder git repository directory...\e[97m"
     cd ${COMPONENT_BUILD_DIRECTORY} 2>&1
+    echo -e "\e[94m  Fetching changes from the remote piaware_builder git repository...\e[97m"
+    echo -e ""
+    git fetch --tags origin 2>&1
     echo -e "\e[94m  Updating the local piaware_builder git repository...\e[97m"
     echo -e ""
-    git pull 2>&1
+    git reset --hard origin/master 2>&1
 else
     # A directory containing the source code does not exist in the build directory.
-    echo -e "\e[94m  Entering the ADS-B Receiver Project build directory...\e[97m"
+    echo -e "\e[94m  Entering the ${RECEIVER_PROJECT_TITLE} build directory...\e[97m"
     cd ${RECEIVER_BUILD_DIRECTORY} 2>&1
     echo -e "\e[94m  Cloning the piaware_builder git repository locally...\e[97m"
     echo -e ""
