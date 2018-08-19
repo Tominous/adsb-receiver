@@ -41,8 +41,10 @@ RECEIVER_BUILD_DIRECTORY="${RECEIVER_ROOT_DIRECTORY}/build"
 COMPONENT_NAME="FlightAware PiAware client"
 COMPONENT_PROVIDER="FlightAware"
 COMPONENT_PACKAGE_NAME="piaware"
+COMPONENT_VERSION="${PIAWARE_VERSION}"
 COMPONENT_WEBSITE="https://www.flightaware.com/adsb/piaware/"
 COMPONENT_GITHUB_URL="https://github.com/flightaware/piaware_builder.git"
+COMPONENT_GITHUB_TAG="${PIAWARE_GITHUB_TAG}"
 COMPONENT_BUILD_DIRECTORY="${RECEIVER_BUILD_DIRECTORY}/piaware_builder"
 
 # Component service script variables.
@@ -153,6 +155,7 @@ else
     echo -e ""
     git clone ${COMPONENT_GITHUB_URL} 2>&1
 fi
+
 
 ## BUILD AND INSTALL THE COMPONENT PACKAGE
 
