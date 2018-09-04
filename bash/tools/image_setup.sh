@@ -134,12 +134,21 @@ case ${DUMP1090OPTION} in
         cd ${RECEIVER_BUILD_DIRECTORY}/dump1090-fa 2>&1
         sudo dpkg -i dump1090-fa_*.deb
 
+        # Debian version test, should be moved to main script.
+        if [[ -z "${DEBIAN_VERSION}" ]] ; then
+            if [[ -f "/etc/debian_version" ]] && [[ "`grep -c "/" /etc/debian_version`" -gt 0 ]] ; then
+                DEBIAN_VERSION=`cat /etc/debian_version | gawk -F "/" '{print $1}'`
+            else
+                DEBIAN_VERSION="jessie"
+            fi
+        fi
+
         # PiAware
         cd ${RECEIVER_BUILD_DIRECTORY} 2>&1
         git clone https://github.com/flightaware/piaware_builder.git
         cd ${RECEIVER_BUILD_DIRECTORY}/piaware_builder 2>&1
-        ./sensible-build.sh jessie
-        cd ${RECEIVER_BUILD_DIRECTORY}/piaware_builder/package-jessie 2>&1
+        ./sensible-build.sh ${DEBIAN_VERSION}
+        cd ${RECEIVER_BUILD_DIRECTORY}/piaware_builder/package-${DEBIAN_VERSION} 2>&1
         dpkg-buildpackage -b
         sudo dpkg -i ${RECEIVER_BUILD_DIRECTORY}/piaware_builder/piaware_*.deb
         ;;

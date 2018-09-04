@@ -191,17 +191,26 @@ if [[ ! "${PWD}" = "${COMPONENT_BUILD_DIRECTORY}" ]] ; then
     cd ${COMPONENT_BUILD_DIRECTORY} 2>&1
 fi
 
+# Debian version test, should be moved to main script.
+if [[ -z "${DEBIAN_VERSION}" ]] ; then
+    if [[ -f "/etc/debian_version" ]] && [[ "`grep -c "/" /etc/debian_version`" -gt 0 ]] ; then
+        DEBIAN_VERSION=`cat /etc/debian_version | gawk -F "/" '{print $1}'`
+    else
+        DEBIAN_VERSION="jessie"
+    fi
+fi
+
 # Dummy test for consistency with other feeder install scripts.
 if [[ -n "${CPU_ARCHITECTURE}" ]] ; then
     # Execute build script.
     echo -e "\e[94m  Executing the ${COMPONENT_NAME} build script...\e[97m"
     echo -e ""
-    ./sensible-build.sh jessie
+    ./sensible-build.sh ${DEBIAN_VERSION}
     echo -e ""
 
     # Change to build script directory.
     echo -e "\e[94m  Entering the ${COMPONENT_NAME} build directory...\e[97m"
-    cd ${COMPONENT_BUILD_DIRECTORY}/package-jessie 2>&1
+    cd ${COMPONENT_BUILD_DIRECTORY}/package-${DEBIAN_VERSION} 2>&1
     echo -e ""
 
     # Build binary package.
