@@ -110,6 +110,7 @@ case ${DUMP1090OPTION} in
         # Install prerequisite packages.
         echo -e "\e[95m  Installing additional dump1090-fa and PiAware prerequisite packages...\e[97m"
         echo -e ""
+        CheckPackage debhelper
         CheckPackage tcl8.6-dev
         CheckPackage autoconf
         CheckPackage python3-dev
@@ -136,8 +137,13 @@ case ${DUMP1090OPTION} in
 
         # Debian version test, should be moved to main script.
         if [[ -z "${DEBIAN_VERSION}" ]] ; then
-            if [[ -f "/etc/debian_version" ]] && [[ "`grep -c "/" /etc/debian_version`" -gt 0 ]] ; then
-                DEBIAN_VERSION=`cat /etc/debian_version | gawk -F "/" '{print $1}'`
+            # Detetct Ubuntu xenial and bionic releases to pass to PiAware build script.
+            if [[ -x "`which lsb_release`" ]] && [[ "`lsb_release -si`" == "Ubuntu" ]] && [[ "`lsb_release -sc | egrep -c "(xenial|bionic)"`" -gt 0 ]] ; then
+                DEBIAN_VERSION="`lsb_release -sc`"
+            # If not then check for Debian release the old fashioned way.
+            elif [[ -f "/etc/debian_version" ]] && [[ "`grep -c "/" /etc/debian_version`" -gt 0 ]] ; then
+                DEBIAN_VERSION="`cat /etc/debian_version | gawk -F "/" '{print $1}'`"
+            # Otherwise fall back to assuming the release to be jessie.
             else
                 DEBIAN_VERSION="jessie"
             fi
