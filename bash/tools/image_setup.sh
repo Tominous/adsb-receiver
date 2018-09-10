@@ -142,7 +142,7 @@ case ${DUMP1090OPTION} in
                 DEBIAN_VERSION="`lsb_release -sc`"
             # If not then check for Debian release the old fashioned way.
             elif [[ -f "/etc/debian_version" ]] && [[ "`grep -c "/" /etc/debian_version`" -gt 0 ]] ; then
-                DEBIAN_VERSION="`cat /etc/debian_version | gawk -F "/" '{print $1}'`"
+                DEBIAN_VERSION="`cat /etc/debian_version | awk -F "/" '{print $1}'`"
             # Otherwise fall back to assuming the release to be jessie.
             else
                 DEBIAN_VERSION="jessie"
