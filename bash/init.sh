@@ -81,14 +81,15 @@ function CheckPrerequisites() {
         echo -e "\n\e[91m  ${RECEIVER_PROJECT_TITLE}"
     fi
     echo -e ""
-    echo -e "\e[92m  Checking to make sure the whiptail and git packages are installed..."
+    echo -e "\e[92m  Checking to make sure the prerequisite packages are installed..."
     echo -e "\e[93m  ------------------------------------------------------------------------------\e[97m"
     echo -e ""
-    CheckPackage whiptail
+    CheckPackage gawk
     CheckPackage git
+    CheckPackage whiptail
     echo -e ""
     echo -e "\e[93m  ------------------------------------------------------------------------------"
-    echo -e "\e[92m  The whiptail and git packages are installed.\e[39m"
+    echo -e "\e[92m  The prerequisite packages are installed.\e[39m"
     if [[ "${RECEIVER_AUTOMATED_INSTALL}" = "false" ]] ; then
         echo -e ""
         read -p "Press enter to continue..." CONTINUE
