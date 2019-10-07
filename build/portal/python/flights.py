@@ -42,7 +42,7 @@ import os
 import urllib2
 
 def log(string):
-    #print(string) # uncomment to enable debug logging
+    print(string) # uncomment to enable debug logging
     return
 
 # Read the configuration file.
@@ -187,8 +187,8 @@ if __name__ == "__main__":
     # Main run loop
     while True:
         # Read dump1090-mutability's aircraft.json.
-        #with open('/run/dump1090-mutability/aircraft.json') as data_file:
-        #    data = json.load(data_file)
+        with open('/run/dump1090-mutability/aircraft.json') as data_file:
+            data = json.load(data_file)
 
         # Switch from physical file location to using urllib2 after the addition of the dump1090-fa option.
         # dump1090-fa and dump1090-mutability store aircraft.json in difrent locations.
