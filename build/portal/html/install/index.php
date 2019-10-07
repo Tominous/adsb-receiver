@@ -48,7 +48,7 @@
     // BEGIN FRESH INSTALLATION
 
     $installed = FALSE;
-    //if ($common->postBack()) {
+    if ($common->postBack()) {
     if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
         require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
         $account = new account();
@@ -81,8 +81,8 @@
                 $dbHost = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite";
 
             $dbPrefix = "adsb_";
-            //if (isset($_POST['prefix']))
-            //    $dbPrefix = $_POST['prefix'];
+            if (isset($_POST['prefix']))
+                $dbPrefix = $_POST['prefix'];
 
             // Create or edit the settings.class.php file.
             $content = <<<EOF
