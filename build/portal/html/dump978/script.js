@@ -359,7 +359,7 @@ function initialize_map() {
                 sortByAltitude();
         }
 
-        // Maybe hide flag info
+        // Maybe hide flag information
         if (!ShowFlags) {
                 PlaneRowTemplate.cells[1].style.display = 'none'; // hide flag column
                 document.getElementById("flag").style.display = 'none'; // hide flag header
@@ -593,7 +593,7 @@ function initialize_map() {
 
 // This looks for planes to reap out of the master Planes variable
 function reaper() {
-        //console.log("Reaping started..");
+        console.log("Reaping started..");
 
 	// Look for planes where we have seen no messages for >300 seconds
         var newPlanes = [];
@@ -601,8 +601,8 @@ function reaper() {
                 var plane = PlanesOrdered[i];
                 if (plane.seen > 300) {
 			// Reap it.                                
-                        //console.log("Reaping " + plane.icao);
-                        //console.log("parent " + plane.tr.parentNode);
+                        console.log("Reaping " + plane.icao);
+                        console.log("parent " + plane.tr.parentNode);
                         plane.tr.parentNode.removeChild(plane.tr);
                         plane.tr = null;
 			delete Planes[plane.icao];
@@ -897,7 +897,7 @@ function sortBy(id,sc,se) {
 }
 
 function selectPlaneByHex(hex,autofollow) {
-        //console.log("select: " + hex);
+        console.log("select: " + hex);
 	// If SelectedPlane has something in it, clear out the selected
 	if (SelectedPlane != null) {
 		Planes[SelectedPlane].selected = false;
