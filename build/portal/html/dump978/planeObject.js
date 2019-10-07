@@ -1,7 +1,7 @@
 "use strict";
 
 function PlaneObject(icao) {
-	// Info about the plane
+	// Information about the plane
         this.icao      = icao;
         this.icaorange = findICAORange(icao);
         this.flight    = null;
@@ -34,7 +34,7 @@ function PlaneObject(icao) {
         this.seen = null;
         this.seen_pos = null;
 
-        // Display info
+        // Display information
         this.visible = true;
         this.marker = null;
         this.markerStyle = null;
@@ -82,7 +82,7 @@ PlaneObject.prototype.updateTrack = function(estimate_time) {
 
         if (this.track_linesegs.length == 0) {
                 // Brand new track
-                //console.log(this.icao + " new track");
+                console.log(this.icao + " new track");
                 var newseg = { fixed: new ol.geom.LineString([projHere]),
                                feature: null,
                                head_update: this.last_position_time,
@@ -105,7 +105,7 @@ PlaneObject.prototype.updateTrack = function(estimate_time) {
 
                 if (!lastseg.estimated) {
                         // >5s gap in data, create a new estimated segment
-                        //console.log(this.icao + " switching to estimated");
+                        console.log(this.icao + " switching to estimated");
                         lastseg.fixed.appendCoordinate(projPrev);
                         this.track_linesegs.push({ fixed: new ol.geom.LineString([projPrev, projHere]),
                                                    feature: null,
@@ -138,7 +138,7 @@ PlaneObject.prototype.updateTrack = function(estimate_time) {
         
         if ( (lastseg.ground && this.altitude !== "ground") ||
              (!lastseg.ground && this.altitude === "ground") ) {
-                //console.log(this.icao + " ground state changed");
+                console.log(this.icao + " ground state changed");
                 // Create a new segment as the ground state changed.
                 // assume the state changed halfway between the two points
                 // FIXME needs reimplementing post-google
@@ -159,7 +159,7 @@ PlaneObject.prototype.updateTrack = function(estimate_time) {
         // plus the most recent point
         if (this.last_position_time - lastseg.tail_update >= 5) {
                 // enough time has elapsed; retain the last point and add a new one
-                //console.log(this.icao + " retain last point");
+                console.log(this.icao + " retain last point");
                 lastseg.fixed.appendCoordinate(projHere);
                 lastseg.tail_update = lastseg.head_update;
                 this.history_size ++;
@@ -263,7 +263,7 @@ PlaneObject.prototype.updateIcon = function() {
         var styleKey = opacity + '!' + rotation;
 
         if (this.markerStyle === null || this.markerIcon === null || this.markerSvgKey != svgKey) {
-                //console.log(this.icao + " new icon and style " + this.markerSvgKey + " -> " + svgKey);
+                console.log(this.icao + " new icon and style " + this.markerSvgKey + " -> " + svgKey);
 
                 var icon = new ol.style.Icon({
                         anchor: baseMarker.anchor,
@@ -324,7 +324,7 @@ PlaneObject.prototype.updateIcon = function() {
         }
 
         if (this.markerStyleKey != styleKey) {
-                //console.log(this.icao + " new rotation");
+                console.log(this.icao + " new rotation");
                 this.markerIcon.setRotation(rotation * Math.PI / 180.0);
                 this.markerIcon.setOpacity(opacity);
                 if (this.staticIcon) {
@@ -386,7 +386,7 @@ PlaneObject.prototype.updateTick = function(receiver_timestamp, last_timestamp) 
 	// If no packet in over 58 seconds, clear the plane.
 	if (this.seen > 58) {
                 if (this.visible) {
-                        //console.log("hiding " + this.icao);
+                        console.log("hiding " + this.icao);
                         this.clearMarker();
                         this.visible = false;
 			if (SelectedPlane == this.icao)
