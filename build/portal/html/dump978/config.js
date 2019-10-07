@@ -14,9 +14,9 @@ MessageRateInTitle = false;
 // Show metric values
 // The Metric setting controls whether metric (m, km, km/h) or
 // imperial (ft, NM, knots) units are used in the plane table
-// and in the detailed plane info. If ShowOtherUnits is true,
+// and in the detailed plane information. If ShowOtherUnits is true,
 // then the other unit will also be shown in the detailed plane
-// info.
+// information.
 Metric = false;
 ShowOtherUnits = true;
 
@@ -82,14 +82,14 @@ ColorByAlt = {
 };
 
 // For a monochrome display try this:
-// ColorByAlt = {
-//         unknown :  { h: 0, s: 0, l: 40 },
-//         ground  :  { h: 0, s: 0, l: 30 },
-//         air :      { h: [ { alt: 0, val: 0 } ], s: 0, l: 50 },
-//         selected : { h: 0, s: 0, l: +30 },
-//         stale :    { h: 0, s: 0, l: +30 },
-//         mlat :     { h: 0, s: 0, l: -10 }
-// };
+ ColorByAlt = {
+         unknown :  { h: 0, s: 0, l: 40 },
+         ground  :  { h: 0, s: 0, l: 30 },
+         air :      { h: [ { alt: 0, val: 0 } ], s: 0, l: 50 },
+         selected : { h: 0, s: 0, l: +30 },
+         stale :    { h: 0, s: 0, l: +30 },
+         mlat :     { h: 0, s: 0, l: -10 }
+ };
 
 // Outline color for aircraft icons with an ADS-B position
 OutlineADSBColor = '#000000';
@@ -121,7 +121,7 @@ ChartBundleLayers = true;
 // https://www.bingmapsportal.com/ (you need a "basic key")
 //
 // Be sure to quote your key:
-//   BingMapsAPIKey = "your key here";
+   BingMapsAPIKey = "your key here";
 //
 BingMapsAPIKey = null;
 
@@ -130,6 +130,6 @@ BingMapsAPIKey = null;
 // (you need a "vector tiles" key)
 //
 // Be sure to quote your key:
-//   MapzenAPIKey = "your key here";
+   MapzenAPIKey = "your key here";
 //
 MapzenAPIKey = null;
